@@ -1,19 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import {
-  BookOpenIcon,
-  BarChart3Icon,
-  GlobeIcon,
-} from "lucide-react"; // or your icon set
 
 import {
-  CalenderIcon,
+  BookOpenIcon,       // Publications
+  BarChart3Icon,      // Visual Graphs
+  HeartIcon,     
+  Activity,
+  LayersIcon,     // Health Dashboard
+  ClockIcon,          // Mission Timeline
+} from "lucide-react";
+
+import {
   ChevronDownIcon,
-  GridIcon,
   HorizontaLDots,
   PlugInIcon,
-  UserCircleIcon,
 } from "../icons";
+
 import { useSidebar } from "../context/SidebarContext";
 
 type NavItem = {
@@ -25,20 +27,31 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <BookOpenIcon />, // Books = Publications
+    icon: <BookOpenIcon />,
     name: "Publications",
     subItems: [{ name: "Space Biology Publications", path: "/" }],
   },
   {
-    icon: <BarChart3Icon />, // Chart = Graphs
+    icon: <BarChart3Icon />,
     name: "Visual Graphs",
     path: "/calendar",
   },
   {
-    icon: <GlobeIcon />, // Globe = 3D Models
+    icon: <LayersIcon />,
     name: "3D Models",
     path: "/threed",
   },
+  {
+    icon: <HeartIcon />,
+    name: "Health Dashboard",
+    path: "/health-dashboard",
+  },
+  {
+    icon: <ClockIcon />,
+    name: "Mission Timeline",
+    path: "/timeline",
+  },
+  { icon: <Activity />, name: "Mini Game", path: "/mini-game" }
 ];
 
 const othersItems: NavItem[] = [

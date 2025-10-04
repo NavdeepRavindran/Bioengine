@@ -3,10 +3,13 @@ import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
+import HealthDashboard from "./pages/HealthDashboard";
 import Videos from "./pages/UiElements/Videos";
 import Images from "./pages/UiElements/Images";
 import Alerts from "./pages/UiElements/Alerts";
+import AsteroidDodger from "./pages/MiniGames/AsteroidDodger";
 import Badges from "./pages/UiElements/Badges";
+import MissionTimeline from "./pages/MissionTimeline";
 import Avatars from "./pages/UiElements/Avatars";
 import Buttons from "./pages/UiElements/Buttons";
 import LineChart from "./pages/Charts/LineChart";
@@ -34,6 +37,9 @@ export default function App() {
             <Route path="/profile" element={<UserProfiles />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/blank" element={<Blank />} />
+            
+            <Route path="/timeline" element={<MissionTimeline />} />
+
 
             {/* Forms */}
             <Route path="/form-elements" element={<FormElements />} />
@@ -48,6 +54,7 @@ export default function App() {
             <Route path="/buttons" element={<Buttons />} />
             <Route path="/images" element={<Images />} />
             <Route path="/videos" element={<Videos />} />
+            <Route path="/health-dashboard" element={<HealthDashboard />} />
 
             {/* Charts */}
             <Route path="/line-chart" element={<LineChart />} />
@@ -56,6 +63,10 @@ export default function App() {
             {/* ✅ New 3D Models Page */}
             <Route path="/threed" element={<ThreeDShowcase />} />
           </Route>
+
+          {/* mini game */}
+          
+          <Route path="/mini-game" element={<AsteroidDodger />} />
 
           {/* Auth Layout */}
           <Route path="/signin" element={<SignIn />} />
