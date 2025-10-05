@@ -11,13 +11,16 @@ interface Publication {
 
 interface Node {
   id: string;
-  group: number;
+  x?: number;
+  y?: number;
+  z?: number;
 }
 
 interface Link {
   source: string;
   target: string;
 }
+
 
 const HF_TOKEN = "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"; // Replace with your Hugging Face token
 
@@ -201,9 +204,7 @@ const KnowledgeGraph: React.FC = () => {
         linkDirectionalParticleWidth={1.2}
         linkDirectionalParticleColor={() => "#00ffff"}
         enableNodeDrag={true}
-        cameraAutoRotate={true}
-        cameraAutoRotateSpeed={0.2}
-        nodeThreeObject={(node: any) => {
+        nodeThreeObject={() => {
           const sprite = new THREE.Sprite(
             new THREE.SpriteMaterial({
               color: 0x00ffff,
@@ -215,11 +216,6 @@ const KnowledgeGraph: React.FC = () => {
           sprite.scale.set(10, 10, 1);
           return sprite;
         }}
-        nodeThreeObjectUpdate={(node: any, obj: any) => {
-          const scale = 10 + Math.sin(Date.now() * 0.004 + node.id.length) * 3;
-          obj.scale.set(scale, scale, 1);
-        }}
-        style={{ width: "100%", height: "100%" }}
       />
 
       {/* Node Info */}

@@ -28,8 +28,6 @@ const SketchfabEmbed: React.FC<SketchfabEmbedProps> = ({
         title={title}
         frameBorder="0"
         allowFullScreen
-        mozAllowFullScreen="true"
-        webkitAllowFullScreen="true"
         allow="autoplay; fullscreen; xr-spatial-tracking"
         src={modelUrl}
         style={{ width: "100%", height: "100%" }}
