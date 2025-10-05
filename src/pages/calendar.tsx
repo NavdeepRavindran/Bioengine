@@ -21,9 +21,7 @@ interface Link {
   target: string;
 }
 
-
-const HF_TOKEN = "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"; // Replace with your Hugging Face token
-
+const HF_TOKEN = import.meta.env.VITE_HUGGINGFACE_TOKEN;
 const KnowledgeGraph: React.FC = () => {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [graphData, setGraphData] = useState<{ nodes: Node[]; links: Link[] }>({
