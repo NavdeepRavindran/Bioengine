@@ -55,7 +55,7 @@ const navItems: NavItem[] = [
 ];
 
 const othersItems: NavItem[] = [
-  { icon: <PlugInIcon />, name: "Account", subItems: [{ name: "Sign In", path: "/signin" }, { name: "Sign Up", path: "/signup" }] },
+  { icon: <PlugInIcon />, name: "Account", subItems: [{ name: "Sign In", path: "/signin" },] },
 ];
 
 const AppSidebar: React.FC = () => {
