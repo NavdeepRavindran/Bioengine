@@ -2,19 +2,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
 import {
-  BookOpenIcon,       // Publications
-  BarChart3Icon,      // Visual Graphs
-  HeartIcon,     
+  BookOpenIcon, // Publications
+  BarChart3Icon, // Visual Graphs
+  HeartIcon,
   Activity,
-  LayersIcon,     // Health Dashboard
-  ClockIcon,          // Mission Timeline
+  LayersIcon, // Health Dashboard
+  ClockIcon, // Mission Timeline
 } from "lucide-react";
 
-import {
-  ChevronDownIcon,
-  HorizontaLDots,
-  PlugInIcon,
-} from "../icons";
+import { ChevronDownIcon, HorizontaLDots, PlugInIcon } from "../icons";
 
 import { useSidebar } from "../context/SidebarContext";
 
@@ -51,21 +47,34 @@ const navItems: NavItem[] = [
     name: "Mission Timeline",
     path: "/timeline",
   },
-  { icon: <Activity />, name: "Mini Game", path: "/mini-game" }
+  { icon: <Activity />, name: "Mini Game", path: "/mini-game" },
 ];
 
 const othersItems: NavItem[] = [
-  { icon: <PlugInIcon />, name: "Account", subItems: [{ name: "Sign In", path: "/signin" },] },
+  {
+    icon: <PlugInIcon />,
+    name: "Account",
+    subItems: [{ name: "Sign In", path: "/signin" }],
+  },
 ];
 
 const AppSidebar: React.FC = () => {
-  const { isExpanded, isMobileOpen, isHovered, setIsHovered, toggleSidebar } = useSidebar();
+  const { isExpanded, isMobileOpen, isHovered, setIsHovered, toggleSidebar } =
+    useSidebar();
   const location = useLocation();
-  const [openSubmenu, setOpenSubmenu] = useState<{ type: "main" | "others"; index: number } | null>(null);
-  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>({});
+  const [openSubmenu, setOpenSubmenu] = useState<{
+    type: "main" | "others";
+    index: number;
+  } | null>(null);
+  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>(
+    {}
+  );
   const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
+  const isActive = useCallback(
+    (path: string) => location.pathname === path,
+    [location.pathname]
+  );
 
   useEffect(() => {
     let submenuMatched = false;
@@ -87,14 +96,19 @@ const AppSidebar: React.FC = () => {
     if (openSubmenu !== null) {
       const key = `${openSubmenu.type}-${openSubmenu.index}`;
       if (subMenuRefs.current[key]) {
-        setSubMenuHeight((prev) => ({ ...prev, [key]: subMenuRefs.current[key]?.scrollHeight || 0 }));
+        setSubMenuHeight((prev) => ({
+          ...prev,
+          [key]: subMenuRefs.current[key]?.scrollHeight || 0,
+        }));
       }
     }
   }, [openSubmenu]);
 
   const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
     setOpenSubmenu((prev) =>
-      prev && prev.type === menuType && prev.index === index ? null : { type: menuType, index }
+      prev && prev.type === menuType && prev.index === index
+        ? null
+        : { type: menuType, index }
     );
   };
 
@@ -106,14 +120,25 @@ const AppSidebar: React.FC = () => {
             <button
               onClick={() => handleSubmenuToggle(index, menuType)}
               className={`flex items-center w-full p-3 rounded-lg transition-colors duration-200 cursor-pointer
-                ${openSubmenu?.type === menuType && openSubmenu?.index === index ? "bg-gray-800" : "hover:bg-gray-700"}`}
+                ${
+                  openSubmenu?.type === menuType && openSubmenu?.index === index
+                    ? "bg-gray-800"
+                    : "hover:bg-gray-700"
+                }`}
             >
               <span className="text-gray-300">{nav.icon}</span>
-              {(isExpanded || isHovered || isMobileOpen) && <span className="ml-3 text-gray-100 font-medium">{nav.name}</span>}
+              {(isExpanded || isHovered || isMobileOpen) && (
+                <span className="ml-3 text-gray-100 font-medium">
+                  {nav.name}
+                </span>
+              )}
               {(isExpanded || isHovered || isMobileOpen) && (
                 <ChevronDownIcon
                   className={`ml-auto w-4 h-4 text-gray-400 transition-transform duration-200 ${
-                    openSubmenu?.type === menuType && openSubmenu?.index === index ? "rotate-180" : ""
+                    openSubmenu?.type === menuType &&
+                    openSubmenu?.index === index
+                      ? "rotate-180"
+                      : ""
                   }`}
                 />
               )}
@@ -126,16 +151,27 @@ const AppSidebar: React.FC = () => {
                   ${isActive(nav.path) ? "bg-gray-800" : "hover:bg-gray-700"}`}
               >
                 <span className="text-gray-300">{nav.icon}</span>
-                {(isExpanded || isHovered || isMobileOpen) && <span className="ml-3 text-gray-100 font-medium">{nav.name}</span>}
+                {(isExpanded || isHovered || isMobileOpen) && (
+                  <span className="ml-3 text-gray-100 font-medium">
+                    {nav.name}
+                  </span>
+                )}
               </Link>
             )
           )}
 
           {nav.subItems && (isExpanded || isHovered || isMobileOpen) && (
             <div
-              ref={(el) => (subMenuRefs.current[`${menuType}-${index}`] = el)}
+              ref={(el) => {
+                subMenuRefs.current[`${menuType}-${index}`] = el;
+              }}
               className="overflow-hidden transition-all duration-300 ml-6"
-              style={{ height: openSubmenu?.type === menuType && openSubmenu?.index === index ? `${subMenuHeight[`${menuType}-${index}`]}px` : "0px" }}
+              style={{
+                height:
+                  openSubmenu?.type === menuType && openSubmenu?.index === index
+                    ? `${subMenuHeight[`${menuType}-${index}`]}px`
+                    : "0px",
+              }}
             >
               <ul className="mt-1 space-y-1">
                 {nav.subItems.map((subItem) => (
@@ -147,8 +183,14 @@ const AppSidebar: React.FC = () => {
                       }`}
                     >
                       {subItem.name}
-                      {subItem.new && <span className="ml-2 text-xs text-blue-400">NEW</span>}
-                      {subItem.pro && <span className="ml-2 text-xs text-yellow-400">PRO</span>}
+                      {subItem.new && (
+                        <span className="ml-2 text-xs text-blue-400">NEW</span>
+                      )}
+                      {subItem.pro && (
+                        <span className="ml-2 text-xs text-yellow-400">
+                          PRO
+                        </span>
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -164,7 +206,9 @@ const AppSidebar: React.FC = () => {
     <aside
       className={`fixed top-0 left-0 flex flex-col h-screen bg-gray-900 text-gray-100 shadow-lg transition-all duration-300 z-50
         ${isExpanded || isMobileOpen ? "w-64" : isHovered ? "w-64" : "w-16"}
-        ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+        ${
+          isMobileOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0`}
       onMouseEnter={() => !isExpanded && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -191,9 +235,21 @@ const AppSidebar: React.FC = () => {
 
       {/* Menu */}
       <div className="flex flex-col flex-1 overflow-y-auto no-scrollbar px-2 py-3">
-        <div className="mb-2 text-xs uppercase text-gray-400 px-3">{isExpanded || isHovered || isMobileOpen ? "Menu" : <HorizontaLDots />}</div>
+        <div className="mb-2 text-xs uppercase text-gray-400 px-3">
+          {isExpanded || isHovered || isMobileOpen ? (
+            "Menu"
+          ) : (
+            <HorizontaLDots />
+          )}
+        </div>
         {renderMenuItems(navItems, "main")}
-        <div className="mt-4 mb-2 text-xs uppercase text-gray-400 px-3">{isExpanded || isHovered || isMobileOpen ? "Others" : <HorizontaLDots />}</div>
+        <div className="mt-4 mb-2 text-xs uppercase text-gray-400 px-3">
+          {isExpanded || isHovered || isMobileOpen ? (
+            "Others"
+          ) : (
+            <HorizontaLDots />
+          )}
+        </div>
         {renderMenuItems(othersItems, "others")}
       </div>
     </aside>
